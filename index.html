@@ -1,31 +1,39 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Snake Game</title>
     <link rel="stylesheet" href="style.css">
     <link href="https://fonts.googleapis.com/css2?family=Honk&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" integrity="sha512-...." crossorigin="anonymous" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"
+        integrity="sha512-...." crossorigin="anonymous" />
 
 </head>
+
 <body>
-    <div class="container ">
+    <div id="container">
         <div id="game">
-            <h1 id="SGHeader">Snake Game</h1>
+            <h1 id="gameTitle">Snake Game</h1>
         </div>
-    <div id="board"></div>
+        <div id="canvas">
+
+        </div>
         <div id="scoringDiv">
             <h2>SCORE</h2>
-            
-            <h3 id="score">00</h3>
+            <br>
+            <span id="score">00</span>
         </div>
-    <button class="glow-on-hover" type="button">   
-      <i class="fas fa-play"></i>
-        PLAY AGAIN
-    </button>
+        <button class="glow-on-hover" type="button" onclick="initGame()">
+            <i class="fas fa-play"></i>
+            PLAY AGAIN
+        </button>
     </div>
-</div>
+
     <script src="app.js"></script>
 </body>
+
 </html>
+
+
