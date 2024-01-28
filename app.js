@@ -4,8 +4,8 @@ let canvas = document.createElement("canvas");
 document.querySelector("#board").appendChild(canvas);
 let boardGrid = canvas.getContext("2d");
 
-const width = (canvas.width = 400);
-const height = (canvas.height = 350);
+const width = (canvas.width = 500);
+const height = (canvas.height = 400);
 let cells = 20;
 function drawGrid() {
     boardGrid.lineWidth = 1.1;
@@ -24,4 +24,4 @@ function drawGrid() {
       boardGrid.closePath();
     }
   }
-  drawGrid();
+ drawGrid();
