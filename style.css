@@ -11,7 +11,7 @@
   }
   #board {
     background-color: #222276;
-    margin: 70px 0px;
+    margin: 35px 0px 20px 0px;
   }
   .container {
     position: absolute;
@@ -29,7 +29,6 @@
   #scoringDiv {
     text-align: center;
     font-size: 30px;
- 
   }
   #score {
   
@@ -64,6 +63,18 @@
     transition: opacity .3s ease-in-out;
     border-radius: 10px;
 }
+.glow-on-hover:after {
+  z-index: -1;
+  content: '';
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background: #222276;
+  left: 0;
+  top: 0;
+  border-radius: 10px;
+}
+
 .glow-on-hover:active {
     color: #000
 }
@@ -72,15 +83,4 @@
 }
 .glow-on-hover:hover:before {
     opacity: 1;
-}
-.glow-on-hover:after {
-    z-index: -1;
-    content: '';
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    background: #222276;
-    left: 0;
-    top: 0;
-    border-radius: 10px;
 }
