@@ -24,4 +24,4 @@ function drawGrid() {
       boardGrid.closePath();
     }
   }
-  drawGrid();
+//   drawGrid();
