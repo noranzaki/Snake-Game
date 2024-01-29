@@ -24,13 +24,15 @@ body {
   height: 350px;
   border: 2px solid #f0f0f6;
   display: grid;
-  grid-template: repeat(30, 1fr) /repeat(30,1fr)/* divide the grid to 30 cols*30rows */
+  grid-template: repeat(30, 1fr) /repeat(30, 1fr)
+    /* divide the grid to 30 cols*30rows */
 }
 
 #canvas .food {
   background: red;
   grid-area: food;
 }
+
 #canvas .snakeHead {
   background: greenyellow;
   grid-area: snakeHead;
@@ -136,4 +138,8 @@ body {
   left: 0;
   top: 0;
   border-radius: 10px;
+<<<<<<< HEAD
 }
+=======
+}
+>>>>>>> f503acff6d32aba278d63001092c4013f08ddf05
