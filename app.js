@@ -23,7 +23,7 @@ let intervalId;       //var to save updateGame interval
 
 
 const initGame = () => {
-
+  
   gameOverMessage.style.display = "none";
   document.getElementById("scoringDiv").style.display = "block";
   changeFoodPosition();
@@ -160,6 +160,7 @@ const gameOver = () => {
  // Display game over message with score and high score
  playButton.style.display = "block";
  gameOverMessage.style.display = "block";
+   
  updateScore_GameOver();
 
  
@@ -181,6 +182,7 @@ function playAgain(){
     score = 0;
     ScoreElement.innerText = "00";
     highestScore = window.localStorage.getItem("highestScore") || undefined;
+   
     initGame();
 
 }

@@ -44,7 +44,7 @@ body {
 }
 
 #gameover{
-  font-size: 50px;
+  font-size: 70px;
 }
 
 #highScoreDisplay ,#scoreDisplay{
@@ -76,7 +76,15 @@ body {
   position: relative;
   z-index: 0;
   border-radius: 10px;
+  /*new style*/
+    position: absolute;
+    top: 100%; /* Adjust the vertical position as needed */
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 20px; /* Adjust font size as needed */
 }
+
+
 
 .glow-on-hover:before {
   content: '';
@@ -118,3 +126,14 @@ body {
   top: 0;
   border-radius: 10px;
 }
+#gameOverMessage {
+  display: none;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  text-align: center;
+  font-size: 40px; /* Adjust font size as needed */
+}
+
+
