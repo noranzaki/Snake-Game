@@ -19,10 +19,13 @@ let foodX, foodY, snakeX = 20, snakeY = 20;
 let velocityX = 0, velocityY = 0;
 let snake = []; //array to store the coordinates of snake body
 let score = 0;   //user current score 
-let   highestScore = window.localStorage.getItem("highestScore") || undefined;  //get user_highest score if any 
+let highestScore = window.localStorage.getItem("highestScore") || undefined;  //get user_highest score if any 
 let GameOver_flag = 0 ;     
 let intervalId;       //var to save updateGame interval
 
+
+const eatSound = document.getElementById("eatSound");
+const gameOverSound = document.getElementById("gameOverSound");
 
 const initGame = () => {
   
@@ -54,20 +57,20 @@ const updateGame = () => {
   //the function to keep the game responsive it gets repeated every 150 milliseconds (update snake position, check for collisions and if bait get eaten increase score , handle user input and render the game )
   updateSnake();
   checkCollision();
-  ateBait(); //to be implemented eat bait and increase score by calling function update score
+  ateBait(); 
   renderGame();
 }
 
 
 const changeFoodPosition = () => {
   //generate coordinates from 1 to 30 (within the game board)
-  foodX = Math.floor(Math.random() * 29) + 1;/* we used 30 here cuz is CSS we specified the num of rows&cols with 30 */
+  foodX = Math.floor(Math.random() * 29) + 1;/* we used 30 here because in CSS we specified the num of rows&cols with 30 */
   foodY = Math.floor(Math.random() * 29) + 1;
 };
 
 const changeSnakePosition = () => {
   //generate coordinates from 1 to 30 (within the game board)
-  snakeX = Math.floor(Math.random() * 29) + 1;/* we used 30 here cuz is CSS we specified the num of rows&cols with 30 */
+  snakeX = Math.floor(Math.random() * 29) + 1;/* we used 30 here because in CSS we specified the num of rows&cols with 30 */
   snakeY = Math.floor(Math.random() * 29) + 1;
 };
 
@@ -122,6 +125,7 @@ const ateBait = () => {
     changeFoodPosition();//to put food in a new random place
     snake.push([foodX, foodY]); //adds a new body part to the snake body at the food's position.
     updateScore_Playing();
+    playEatSound(); // to play the eat sound here
   }
 };
 const renderGame = () => {
@@ -174,6 +178,14 @@ GameOver_flag++;
   playAgainButton.style.display = "block";
 
   updateScore_GameOver();
+ document.getElementById("scoringDiv").style.display = "none";
+ // Display game over message with score and high score
+ playButton.style.display = "block";
+ gameOverMessage.style.display = "block";
+   
+ updateScore_GameOver();
+ playGameOverSound(); // to play the game over sound here
+ 
 };
 
 ///////////////////////////////////play Again event///////////////////////////
@@ -201,6 +213,24 @@ function playAgain(){
   initGame();
 
 }
+
+
+//////////////////////// sounds ////////////////////////////////////
+// to play eat sound whenever the snake eats food
+const playEatSound = () => {
+  eatSound.currentTime = 0; // to reset the sound to the beginning in case it's already playing
+  eatSound.play();
+};
+
+// to play game over sound when the game is over
+const playGameOverSound = () => {
+  gameOverSound.currentTime = 0;
+  gameOverSound.play(); // to reset the sound to the beginning in case it's already playing
+};
+
+
+
+
 /////////////////////////// Keyboard Movments //////////////////////////////
 
 //an event handler function to decide direction of snake based on arrow pressed
