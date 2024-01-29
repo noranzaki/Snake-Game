@@ -169,9 +169,11 @@ const gameOver = () => {
 
 // To initialize all vars to startover
 function playAgain(){
+   clearInterval(intervalId);
     changeFoodPosition();
     changeSnakePosition();
     while(foodX==snakeX && foodY==snakeY){
+      score--;
       changeSnakePosition();
     }
     velocityX = 0, velocityY = 0;
