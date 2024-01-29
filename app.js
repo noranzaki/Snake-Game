@@ -6,6 +6,8 @@ const scoreDisplay = document.getElementById("scoreDisplay");
 const highScoreDisplay = document.getElementById("highScoreDisplay");
 const gameOverMessage = document.getElementById("gameOverMessage");
 const playButton = document.querySelector(".glow-on-hover");
+let playAgainFlag = false; // Flag to track whether it's a play again situation
+
 
 //playBoardWidth and playBoardHeight are constants storing the width and height of the game board.
 const playBoardWidth = playBoard.offsetWidth;
@@ -38,7 +40,14 @@ const initGame = () => {
   //   updateGame();
   // }, 150); //150 is the speed of game 
   //without it it will be a static screen 
-};
+
+  playAgainFlag = false;
+  playButton.innerText = "PLAY AGAIN";
+  playButton.style.display = "none";
+  gameOverMessage.style.display = "none";
+  document.getElementById("scoringDiv").style.display = "block";
+  playAgainButton.style.display = "none"; // Hide PLAY AGAIN button initially
+}
 
 
 const updateGame = () => {
@@ -152,38 +161,44 @@ function updateScore_GameOver() {
 
 //////////////////////////////Game Over /////////////////////////////
 const gameOver = () => {
- GameOver_flag++ ;
- clearInterval(intervalId);
- console.log("gameOver function == ",GameOver_flag);
 
- document.getElementById("scoringDiv").style.display = "none";
- // Display game over message with score and high score
- playButton.style.display = "block";
- gameOverMessage.style.display = "block";
-   
- updateScore_GameOver();
+GameOver_flag++;
+  clearInterval(intervalId);
+  console.log("gameOver function == ", GameOver_flag);
 
- 
+  document.getElementById("scoringDiv").style.display = "none";
+  gameOverMessage.style.display = "block";
+
+  // Show "PLAY AGAIN" button
+  const playAgainButton = document.querySelector(".glow-on-hover");
+  playAgainButton.style.display = "block";
+
+  updateScore_GameOver();
 };
 
 ///////////////////////////////////play Again event///////////////////////////
 
 // To initialize all vars to startover
 function playAgain(){
-   clearInterval(intervalId);
-    changeFoodPosition();
+
+  clearInterval(intervalId);
+  changeFoodPosition();
+  changeSnakePosition();
+  while (foodX == snakeX && foodY == snakeY) {
+    score--;
     changeSnakePosition();
-    while(foodX==snakeX && foodY==snakeY){
-      score--;
-      changeSnakePosition();
-    }
-    velocityX = 0, velocityY = 0;
-    snake = [];
-    score = 0;
-    ScoreElement.innerText = "00";
-    highestScore = window.localStorage.getItem("highestScore") || undefined;
-   
-    initGame();
+  }
+  velocityX = 0;
+  velocityY = 0;
+  snake = [];
+  score = 0;
+  ScoreElement.innerText = "00";
+  highestScore = window.localStorage.getItem("highestScore") || undefined;
+  playAgainFlag = false;
+  playButton.style.display = "none";
+  gameOverMessage.style.display = "none";
+  document.getElementById("scoringDiv").style.display = "block";
+  initGame();
 
 }
 /////////////////////////// Keyboard Movments //////////////////////////////
