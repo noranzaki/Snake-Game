@@ -17,23 +17,27 @@
         <div id="game">
             <h1 id="gameTitle">Snake Game</h1>
         </div>
-        <div id="canvas">
-
-        </div>
+        <div id="canvas"></div>
         <div id="scoringDiv">
             <h2>SCORE</h2>
-            <br>
             <span id="score">00</span>
         </div>
-        <button class="glow-on-hover" type="button" onclick="initGame()">
-            <i class="fas fa-play"></i>
+        <br>
+        <button class="glow-on-hover" type="button" onclick="playAgain()" style="display: none;">
             PLAY AGAIN
         </button>
-    </div>
+     
+        <div id="gameOverMessage">
+            <h1 id ="gameover">GAME OVER</h1>
+            <p id="scoreDisplay"></p>
+            <p id="highScoreDisplay"></p>
+        </div>
 
+    </div>
+    <audio id="eatSound" src="eating-sound-effect-36186.mp3"></audio>
+    <audio id="gameOverSound" src="mixkit-sad-game-over-trombone-471.wav"></audio>
+    
     <script src="app.js"></script>
 </body>
 
 </html>
-
-
