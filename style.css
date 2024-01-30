@@ -185,3 +185,36 @@ body {
   width: 10px;
   text-align: center;
 }
+
+
+
+/* Updated styles for level selection */
+.startMenu h1 {
+  font-size: 50px; /* Increased font size for the heading */
+}
+
+.startMenu div {
+  display: flex;
+  justify-content: space-around;
+  margin-top: 10px;
+}
+
+.startMenu label {
+  font-size: 25px; /* Increased font size for level labels */
+  margin: 0 10px;
+}
+
+.startMenu input {
+  margin-bottom: 5px;
+}
+
+/* Additional styling for better visual separation */
+.startMenu div {
+  border-top: 2px solid #ec9743;
+  padding-top: 10px;
+}
+
+.startMenu h1,
+.startMenu label {
+  color: #ec9743;
+}

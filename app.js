@@ -9,6 +9,8 @@ const playButton = document.querySelector(".glow-on-hover");
 const controlers = document.querySelectorAll(".controlers i");
 const eatSound = document.getElementById("eatSound");
 const gameOverSound = document.getElementById("gameOverSound");
+
+
 //playBoardWidth and playBoardHeight are constants storing the width and height of the game board.
 const playBoardWidth = playBoard.offsetWidth;
 const playBoardHeight = playBoard.offsetHeight;
@@ -36,16 +38,24 @@ const checkGameSettings = () => {
   initGame(displayArrowsFlag, /* level */);
 };
 
+
+
 const initGame = (displayArrowsFlag) => {
+
 
   gameOverMessage.style.display = "none";//++++++++++++++++++++++++++++++++++++++++++++++++++
   document.getElementById("scoringDiv").style.display = "block";
   changeFoodPosition();
 
+  const playAgainButton = document.querySelector(".glow-on-hover");
+  playAgainButton.style.display = "none"; // Hide the button during gameplay
+  
+
   // updateScore(); //to be implemented by huda
   //to create a continous loop to update the game state and renders it on the screen(check snake position, handle user input, check for collisions then render)
 
   intervalId = setInterval(() => {
+    
     updateGame();
   }, 150);
 
@@ -55,11 +65,11 @@ const initGame = (displayArrowsFlag) => {
   //without it game will be a static screen 
 
   //++++++++++++++++++++++++++++++++++++++++Repeated++++++++++++++++++++++++++++++++++++++++++++++++++++
-  /* playAgainFlag = false;
-  playButton.innerText = "PLAY AGAIN";
-  playButton.style.display = "none";
-  gameOverMessage.style.display = "none";
-  document.getElementById("scoringDiv").style.display = "block"; */
+  //  playAgainFlag = false;
+  // playButton.innerText = "PLAY AGAIN";
+  // playButton.style.display = "none";
+  // gameOverMessage.style.display = "none";
+  // document.getElementById("scoringDiv").style.display = "block"; 
   //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
   // Use setTimeout to introduce a slight delay before showing arrows
@@ -70,6 +80,8 @@ const initGame = (displayArrowsFlag) => {
   }, 100);
 
 }
+////to ask the player every time about the level
+
 
 const updateGame = () => {
   //the function to keep the game responsive it gets repeated every 150 milliseconds (update snake position, check for collisions and if bait get eaten increase score , handle user input and render the game )
@@ -122,7 +134,7 @@ const updateSnake = () => {
 
 const checkCollision = () => {
   // collision with walls
-  if (snakeX < 0 || snakeX > 30 || snakeY < 0 || snakeY > 30) {
+  if (snakeX <= 0 || snakeX > 30 || snakeY <= 0 || snakeY > 30) {
     gameOver();
   }
   // collision with itself 
@@ -224,6 +236,7 @@ function playAgain() {
   gameOverMessage.style.display = "none";
   document.getElementById("scoringDiv").style.display = "block";
   initGame();
+  
 
 }
 
