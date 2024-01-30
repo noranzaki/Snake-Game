@@ -43,13 +43,15 @@ body {
   font-size: 60px;
 }
 
-#gameover{
+#gameover {
   font-size: 70px;
 }
 
-#highScoreDisplay ,#scoreDisplay{
-    font-size: 25px;
+#highScoreDisplay,
+#scoreDisplay {
+  font-size: 25px;
 }
+
 /* .noselect {
   user-select: none;
 } */
@@ -77,15 +79,15 @@ body {
   z-index: 0;
   border-radius: 10px;
   /*new style*/
-    position: absolute;
-    top: 100%; /* Adjust the vertical position as needed */
-    left: 50%;
-    transform: translateX(-50%);
-    font-size: 20px; /* Adjust font size as needed */
-    display: none;
+  position: absolute;
+  top: 100%;
+  /* Adjust the vertical position as needed */
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 20px;
+  /* Adjust font size as needed */
+  display: none;
 }
-
-
 
 .glow-on-hover:before {
   content: '';
@@ -127,6 +129,7 @@ body {
   top: 0;
   border-radius: 10px;
 }
+
 #gameOverMessage {
   display: none;
   position: absolute;
@@ -134,10 +137,51 @@ body {
   left: 50%;
   transform: translate(-50%, -50%);
   text-align: center;
-  font-size: 40px; /* Adjust font size as needed */
-}
-#eatSound, #gameOverSound{
-  display:none;
+  font-size: 40px;
 }
 
+#eatSound,
+#gameOverSound {
+  display: none;
+}
 
+.startMenu {
+  text-align: center;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 100%;
+}
+
+.startMenu label,
+.startMenu div {
+  margin-bottom: 10px;
+}
+
+.startMenu input[type="checkbox"],
+.startMenu input[type="radio"] {
+  margin-right: 5px;
+}
+
+.startMenu .glow-on-hover {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 150px;
+}
+
+.controlers {
+  display: none;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.controlers i {
+  padding: 15px;
+  color: wheat;
+  cursor: pointer;
+  font-size: 1rem;
+  width: 10px;
+  text-align: center;
+}
