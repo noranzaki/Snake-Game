@@ -37,9 +37,9 @@ const checkGameSettings = () => {
 
 };
 const updateLevel = (level) => {
-       
+ 
       ////to ask the player every time about the level
-      if(level=="high"){
+      if(level === "high"){
           //to create a continous loop to update the game state and renders it on the screen(check snake position, handle user input, check for collisions then render)
           intervalId = setInterval(() => {
           updateGame();
@@ -47,7 +47,7 @@ const updateLevel = (level) => {
           //without it game will be a static screen 
         
       }
-      else if (level="medium"){
+      else if (level === "medium"){
           intervalId = setInterval(() => {
             updateGame();
           }, 100);   //100 is the speed of game 
@@ -57,7 +57,7 @@ const updateLevel = (level) => {
       else {
           intervalId = setInterval(() => {
             updateGame();
-          }, 150);   //140 is the speed of game 
+          }, 140);   //140 is the speed of game 
 
       }
 
