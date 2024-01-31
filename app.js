@@ -72,10 +72,10 @@ const initGame = (displayArrowsFlag,level) => {
   document.getElementById("scoringDiv").style.display = "block";
   changeFoodPosition();
 
-  const playAgainButton = document.querySelector(".glow-on-hover");
-  playAgainButton.style.display = "none"; // Hide the button during gameplay
-
-  updateLevel(level);
+  //const playAgainButton = document.querySelector(".glow-on-hover");
+  playButton.style.display = "none"; // Hide the button during gameplay
+  
+ updateLevel(level);
     // Use setTimeout to introduce a slight delay before showing arrows
     setTimeout(() => {
       if (displayArrowsFlag) {
@@ -222,6 +222,7 @@ const gameOver = () => {
 
 // To initialize all vars to startover
 function playAgain() {
+  location.reload();
   clearInterval(intervalId);
   changeFoodPosition();
   changeSnakePosition();
@@ -240,6 +241,7 @@ function playAgain() {
   playButton.style.display = "none";
   gameOverMessage.style.display = "none";
   document.getElementById("scoringDiv").style.display = "block";
+  checkGameSettings();
   initGame();
   
 
@@ -249,13 +251,13 @@ function playAgain() {
 // to play eat sound whenever the snake eats food
 const playEatSound = () => {
   eatSound.currentTime = 0; // to reset the sound to the beginning in case it's already playing
-  eatSound.play();
+  eatSound.play(); //to play sound
 };
 
 // to play game over sound when the game is over
 const playGameOverSound = () => {
-  gameOverSound.currentTime = 0;
-  gameOverSound.play(); // to reset the sound to the beginning in case it's already playing
+  gameOverSound.currentTime = 0;// to reset the sound to the beginning in case it's already playing
+  gameOverSound.play(); //to play sound
 };
 
 
