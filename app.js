@@ -30,8 +30,6 @@ const initGame = () => {
   document.getElementById("scoringDiv").style.display = "block";
   changeFoodPosition();
 
-  // updateScore(); //to be implemented by huda
-  //to create a continous loop to update the game state and renders it on the screen(check snake position, handle user input, check for collisions then render)
   
   intervalId = setInterval(() => {
     updateGame();
@@ -64,16 +62,6 @@ const changeSnakePosition = () => {
   snakeY = Math.floor(Math.random() * 29) + 1;
 };
 
-
-
-//to be implemented by huda
-// const updateScore = () => {
-//   score++; // increment score by 1
-//   highScore = score >= highScore ? score : highScore; //update high score to set it in the local storage to be able to retrieve it again in case the current game is over
-//   localStorage.setItem("high-score", highScore);
-//   ScoreElement.innerText = `Score: ${score}`;
-//   highScoreElement.innerText = `High Score: ${highScore}`;
-// };
 
 const updateSnake = () => {
   // Copy the snake array to avoid referencing issues (... : shallow copy)
@@ -195,13 +183,13 @@ function playAgain(){
 // to play eat sound whenever the snake eats food
 const playEatSound = () => {
   eatSound.currentTime = 0; // to reset the sound to the beginning in case it's already playing
-  eatSound.play();
+  eatSound.play(); //to play sound
 };
 
 // to play game over sound when the game is over
 const playGameOverSound = () => {
-  gameOverSound.currentTime = 0;
-  gameOverSound.play(); // to reset the sound to the beginning in case it's already playing
+  gameOverSound.currentTime = 0;// to reset the sound to the beginning in case it's already playing
+  gameOverSound.play(); //to play sound
 };
 
 
