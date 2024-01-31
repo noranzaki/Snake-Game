@@ -19,15 +19,16 @@ body {
   text-align: center;
 }
 
+
 #canvas {
-  width: 450px;
-  height: 400px;
+  width: 600px;  /* Set the desired width */
+  height: 500px; /* Set the desired height */
   border: 2px solid #fcaa59;
   background-color: #1d2542;
   display: grid;
-  grid-template: repeat(30, 1fr) /repeat(30, 1fr)
-    /* divide the grid to 30 cols*30rows */
+  grid-template: repeat(25, 1fr) / repeat(25, 1fr); /* Adjust the grid size */
 }
+
 
 
 #canvas .food {
@@ -41,7 +42,7 @@ body {
 }
 
 #gameTitle {
-  font-size: 60px;
+  font-size: 70px;
 }
 
 #gameover {
@@ -60,11 +61,11 @@ body {
 
 #scoringDiv {
   text-align: center;
-  font-size: 30px;
+  font-size: 40px;
 }
 
 #score {
-  font-size: 30px;
+  font-size: 40px;
   font-weight: 800;
 }
 
@@ -135,15 +136,26 @@ body {
 #gameOverMessage {
   display: none;
   position: absolute;
-  top: 50%;
+  top: 55%;
   left: 50%;
   transform: translate(-50%, -50%);
   text-align: center;
-  font-size: 40px;
+  font-size: 60px;
   background-color: rgba(65, 82, 143, 0.5);
   border-radius: 30px;
   width: 80%;
-  height: 60%;
+  height: 50%;
+}
+#gameover{
+  text-align: center;
+}
+#scoreDisplay{
+  font-size: 35px;
+  text-align: center;
+}
+#highScoreDisplay{
+  font-size: 35px;
+  text-align: center;
 }
 
 #eatSound,

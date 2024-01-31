@@ -17,7 +17,7 @@ const playBoardHeight = playBoard.offsetHeight;
 let playAgainFlag = false; // Flag to track whether it's a play again situation
 
 //food coordinates           //snake coordinates 
-let foodX, foodY, snakeX = 20, snakeY = 20;
+let foodX, foodY, snakeX = 10, snakeY = 10;
 
 //velocityX and velocityY represent the current direction of the snake.
 let velocityX = 0, velocityY = 0;
@@ -107,15 +107,15 @@ const updateGame = () => {
 
 
 const changeFoodPosition = () => {
-  //generate coordinates from 1 to 30 (within the game board)
-  foodX = Math.floor(Math.random() * 29) + 1;/* we used 30 here because in CSS we specified the num of rows&cols with 30 */
-  foodY = Math.floor(Math.random() * 29) + 1;
+  //generate coordinates from 1 to 25 (within the game board)
+  foodX = Math.floor(Math.random() * 24) + 1;/* we used 30 here because in CSS we specified the num of rows&cols with 30 */
+  foodY = Math.floor(Math.random() * 24) + 1;
 };
 
 const changeSnakePosition = () => {
-  //generate coordinates from 1 to 30 (within the game board)
-  snakeX = Math.floor(Math.random() * 29) + 1;/* we used 30 here because in CSS we specified the num of rows&cols with 30 */
-  snakeY = Math.floor(Math.random() * 29) + 1;
+  //generate coordinates from 1 to 25 (within the game board)
+  snakeX = Math.floor(Math.random() * 24) + 1;/* we used 30 here because in CSS we specified the num of rows&cols with 30 */
+  snakeY = Math.floor(Math.random() * 24) + 1;
 };
 
 
@@ -138,7 +138,7 @@ const updateSnake = () => {
 
 const checkCollision = () => {
   // collision with walls
-  if (snakeX <= 0 || snakeX > 30 || snakeY <= 0 || snakeY > 30) {
+  if (snakeX == 0 || snakeX > 25 || snakeY == 0 || snakeY > 25) {
     gameOver();
   }
   // collision with itself 
