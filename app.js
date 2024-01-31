@@ -1,11 +1,10 @@
 const playBoard = document.querySelector("#canvas");
-//let playBoard_2D_context = playBoard.getContext("2d");
-//const ScoreElement = document.getElementById("scoreDisplay");
 const ScoreElement = document.getElementById("score");
 const scoreDisplay = document.getElementById("scoreDisplay");
 const highScoreDisplay = document.getElementById("highScoreDisplay");
 const gameOverMessage = document.getElementById("gameOverMessage");
 const playButton = document.querySelector(".glow-on-hover");
+
 const controlers = document.querySelectorAll(".controlers i");
 const eatSound = document.getElementById("eatSound");
 const gameOverSound = document.getElementById("gameOverSound");
@@ -33,14 +32,40 @@ let intervalId;       //var to save updateGame interval
 
 const checkGameSettings = () => {
   const displayArrowsFlag = document.getElementById("displayArrows").checked;
-  //const level = document.querySelector('input[name="level"]:checked').value;
+  const level = document.querySelector('input[name="level"]:checked').value;
+  initGame(displayArrowsFlag,  level );
 
-  initGame(displayArrowsFlag, /* level */);
+};
+const updateLevel = (level) => {
+       
+      ////to ask the player every time about the level
+      if(level=="high"){
+          //to create a continous loop to update the game state and renders it on the screen(check snake position, handle user input, check for collisions then render)
+          intervalId = setInterval(() => {
+          updateGame();
+          }, 70);   //70 is the speed of game 
+          //without it game will be a static screen 
+        
+      }
+      else if (level="medium"){
+          intervalId = setInterval(() => {
+            updateGame();
+          }, 100);   //100 is the speed of game 
+        
+
+      }
+      else {
+          intervalId = setInterval(() => {
+            updateGame();
+          }, 150);   //140 is the speed of game 
+
+      }
+
 };
 
 
 
-const initGame = (displayArrowsFlag) => {
+const initGame = (displayArrowsFlag,level) => {
 
 
   gameOverMessage.style.display = "none";//++++++++++++++++++++++++++++++++++++++++++++++++++
@@ -50,19 +75,13 @@ const initGame = (displayArrowsFlag) => {
   const playAgainButton = document.querySelector(".glow-on-hover");
   playAgainButton.style.display = "none"; // Hide the button during gameplay
   
-
-  // updateScore(); //to be implemented by huda
-  //to create a continous loop to update the game state and renders it on the screen(check snake position, handle user input, check for collisions then render)
-
-  intervalId = setInterval(() => {
-    
-    updateGame();
-  }, 150);
-
-  // setInterval(() => {
-  //   updateGame();
-  // }, 150); //150 is the speed of game 
-  //without it game will be a static screen 
+ updateLevel(level);
+    // Use setTimeout to introduce a slight delay before showing arrows
+    setTimeout(() => {
+      if (displayArrowsFlag) {
+        document.querySelector('.controlers').style.display = 'flex';
+      }
+    }, 100);
 
   //++++++++++++++++++++++++++++++++++++++++Repeated++++++++++++++++++++++++++++++++++++++++++++++++++++
   //  playAgainFlag = false;
@@ -72,19 +91,14 @@ const initGame = (displayArrowsFlag) => {
   // document.getElementById("scoringDiv").style.display = "block"; 
   //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
-  // Use setTimeout to introduce a slight delay before showing arrows
-  setTimeout(() => {
-    if (displayArrowsFlag) {
-      document.querySelector('.controlers').style.display = 'flex';
-    }
-  }, 100);
+
 
 }
-////to ask the player every time about the level
+
 
 
 const updateGame = () => {
-  //the function to keep the game responsive it gets repeated every 150 milliseconds (update snake position, check for collisions and if bait get eaten increase score , handle user input and render the game )
+  //the function to keep the game responsive it gets repeated every { the game speed } milliseconds (update snake position, check for collisions and if bait get eaten increase score , handle user input and render the game )
   updateSnake();
   checkCollision();
   ateBait();
@@ -104,16 +118,6 @@ const changeSnakePosition = () => {
   snakeY = Math.floor(Math.random() * 29) + 1;
 };
 
-
-
-//to be implemented by huda
-// const updateScore = () => {
-//   score++; // increment score by 1
-//   highScore = score >= highScore ? score : highScore; //update high score to set it in the local storage to be able to retrieve it again in case the current game is over
-//   localStorage.setItem("high-score", highScore);
-//   ScoreElement.innerText = `Score: ${score}`;
-//   highScoreElement.innerText = `High Score: ${highScore}`;
-// };
 
 const updateSnake = () => {
   // Copy the snake array to avoid referencing issues (... : shallow copy)
@@ -231,6 +235,7 @@ function playAgain() {
   score = 0;
   ScoreElement.innerText = "00";
   highestScore = window.localStorage.getItem("highestScore") || undefined;
+
   playAgainFlag = false;
   playButton.style.display = "none";
   gameOverMessage.style.display = "none";
