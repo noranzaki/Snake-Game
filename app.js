@@ -21,7 +21,6 @@ let highestScore = window.localStorage.getItem("highestScore") || undefined;  //
 let GameOver_flag = 0 ;     
 let intervalId;       //var to save updateGame interval
 
-
 const eatSound = document.getElementById("eatSound");
 const gameOverSound = document.getElementById("gameOverSound");
 
