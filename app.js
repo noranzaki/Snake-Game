@@ -72,8 +72,8 @@ const initGame = (displayArrowsFlag,level) => {
   document.getElementById("scoringDiv").style.display = "block";
   changeFoodPosition();
 
-  const playAgainButton = document.querySelector(".glow-on-hover");
-  playAgainButton.style.display = "none"; // Hide the button during gameplay
+  //const playAgainButton = document.querySelector(".glow-on-hover");
+  playButton.style.display = "none"; // Hide the button during gameplay
   
  updateLevel(level);
     // Use setTimeout to introduce a slight delay before showing arrows
@@ -222,6 +222,7 @@ const gameOver = () => {
 
 // To initialize all vars to startover
 function playAgain() {
+  location.reload();
   clearInterval(intervalId);
   changeFoodPosition();
   changeSnakePosition();
@@ -240,6 +241,7 @@ function playAgain() {
   playButton.style.display = "none";
   gameOverMessage.style.display = "none";
   document.getElementById("scoringDiv").style.display = "block";
+  checkGameSettings();
   initGame();
   
 
