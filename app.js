@@ -1,51 +1,107 @@
 const playBoard = document.querySelector("#canvas");
-//let playBoard_2D_context = playBoard.getContext("2d");
-//const ScoreElement = document.getElementById("scoreDisplay");
 const ScoreElement = document.getElementById("score");
 const scoreDisplay = document.getElementById("scoreDisplay");
 const highScoreDisplay = document.getElementById("highScoreDisplay");
 const gameOverMessage = document.getElementById("gameOverMessage");
 const playButton = document.querySelector(".glow-on-hover");
 
+const controlers = document.querySelectorAll(".controlers i");
+const eatSound = document.getElementById("eatSound");
+const gameOverSound = document.getElementById("gameOverSound");
+
+
 //playBoardWidth and playBoardHeight are constants storing the width and height of the game board.
 const playBoardWidth = playBoard.offsetWidth;
 const playBoardHeight = playBoard.offsetHeight;
 
+let playAgainFlag = false; // Flag to track whether it's a play again situation
+
 //food coordinates           //snake coordinates 
 let foodX, foodY, snakeX = 20, snakeY = 20;
+
 //velocityX and velocityY represent the current direction of the snake.
 let velocityX = 0, velocityY = 0;
 let snake = []; //array to store the coordinates of snake body
 let score = 0;   //user current score 
 let highestScore = window.localStorage.getItem("highestScore") || undefined;  //get user_highest score if any 
-let GameOver_flag = 0 ;     
+let GameOver_flag = 0;
 let intervalId;       //var to save updateGame interval
 
-const eatSound = document.getElementById("eatSound");
-const gameOverSound = document.getElementById("gameOverSound");
 
-const initGame = () => {
-  
-  gameOverMessage.style.display = "none";
-  document.getElementById("scoringDiv").style.display = "block";
-  changeFoodPosition();
+////////////////////////////////check setting before start//////////////////////////////////////
 
-  
-  intervalId = setInterval(() => {
-    updateGame();
-  }, 150);
-  // setInterval(() => {
-  //   updateGame();
-  // }, 150); //150 is the speed of game 
-  //without it it will be a static screen 
+const checkGameSettings = () => {
+  const displayArrowsFlag = document.getElementById("displayArrows").checked;
+  const level = document.querySelector('input[name="level"]:checked').value;
+  initGame(displayArrowsFlag,  level );
+
+};
+const updateLevel = (level) => {
+       
+      ////to ask the player every time about the level
+      if(level=="high"){
+          //to create a continous loop to update the game state and renders it on the screen(check snake position, handle user input, check for collisions then render)
+          intervalId = setInterval(() => {
+          updateGame();
+          }, 70);   //70 is the speed of game 
+          //without it game will be a static screen 
+        
+      }
+      else if (level="medium"){
+          intervalId = setInterval(() => {
+            updateGame();
+          }, 100);   //100 is the speed of game 
+        
+
+      }
+      else {
+          intervalId = setInterval(() => {
+            updateGame();
+          }, 150);   //140 is the speed of game 
+
+      }
+
 };
 
 
+
+const initGame = (displayArrowsFlag,level) => {
+
+
+  gameOverMessage.style.display = "none";//++++++++++++++++++++++++++++++++++++++++++++++++++
+  document.getElementById("scoringDiv").style.display = "block";
+  changeFoodPosition();
+
+  const playAgainButton = document.querySelector(".glow-on-hover");
+  playAgainButton.style.display = "none"; // Hide the button during gameplay
+  
+ updateLevel(level);
+    // Use setTimeout to introduce a slight delay before showing arrows
+    setTimeout(() => {
+      if (displayArrowsFlag) {
+        document.querySelector('.controlers').style.display = 'flex';
+      }
+    }, 100);
+
+  //++++++++++++++++++++++++++++++++++++++++Repeated++++++++++++++++++++++++++++++++++++++++++++++++++++
+  //  playAgainFlag = false;
+  // playButton.innerText = "PLAY AGAIN";
+  // playButton.style.display = "none";
+  // gameOverMessage.style.display = "none";
+  // document.getElementById("scoringDiv").style.display = "block"; 
+  //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+
+
+}
+
+
+
 const updateGame = () => {
-  //the function to keep the game responsive it gets repeated every 150 milliseconds (update snake position, check for collisions and if bait get eaten increase score , handle user input and render the game )
+  //the function to keep the game responsive it gets repeated every { the game speed } milliseconds (update snake position, check for collisions and if bait get eaten increase score , handle user input and render the game )
   updateSnake();
   checkCollision();
-  ateBait(); 
+  ateBait();
   renderGame();
 }
 
@@ -82,7 +138,7 @@ const updateSnake = () => {
 
 const checkCollision = () => {
   // collision with walls
-  if (snakeX < 0 || snakeX > 30 || snakeY < 0 || snakeY > 30) {
+  if (snakeX <= 0 || snakeX > 30 || snakeY <= 0 || snakeY > 30) {
     gameOver();
   }
   // collision with itself 
@@ -93,7 +149,7 @@ const checkCollision = () => {
       break;
     }
   }
- };
+};
 
 
 //checks if the snake's head is in the same position as the food
@@ -119,65 +175,75 @@ const renderGame = () => {
 function updateScore_Playing() {
   score++;
   ScoreElement.innerText = score.toString().padStart(2, "0");
-  
+
 }
 
 //update highest score and show scoreDisplay &  highScoreDisplay
 function updateScore_GameOver() {
- 
- //check if highestScore have changed or not 
- highestScore ? null : (highestScore = score);    // first time to play 
- score > highestScore ? (highestScore = score) : null;   // user exceed prev_highest score
- window.localStorage.setItem("highestScore", highestScore);
 
- // Update the score and high score displays
- scoreDisplay.textContent = `Your Score: ${score}`;
- highScoreDisplay.textContent = `Highest Score: ${highestScore}`;
-  
+  //check if highestScore have changed or not 
+  highestScore ? null : (highestScore = score);    // first time to play 
+  score > highestScore ? (highestScore = score) : null;   // user exceed prev_highest score
+  window.localStorage.setItem("highestScore", highestScore);
+
+  // Update the score and high score displays
+  scoreDisplay.textContent = `Your Score: ${score}`;
+  highScoreDisplay.textContent = `Highest Score: ${highestScore}`;
+
 }
 ///////////////////////////////////////////////////////////////////////////////
 
-
-
-
-
 //////////////////////////////Game Over /////////////////////////////
 const gameOver = () => {
- GameOver_flag++ ;
- clearInterval(intervalId);
- console.log("gameOver function == ",GameOver_flag);
 
- document.getElementById("scoringDiv").style.display = "none";
- // Display game over message with score and high score
- playButton.style.display = "block";
- gameOverMessage.style.display = "block";
-   
- updateScore_GameOver();
- playGameOverSound(); // to play the game over sound here
- 
+  GameOver_flag++;
+  clearInterval(intervalId);
+  console.log("gameOver function == ", GameOver_flag);
+
+  document.getElementById("scoringDiv").style.display = "none";
+  gameOverMessage.style.display = "block";
+
+  // Show "PLAY AGAIN" button
+  const playAgainButton = document.querySelector(".glow-on-hover");
+  playAgainButton.style.display = "block";
+
+  updateScore_GameOver();
+  document.getElementById("scoringDiv").style.display = "none";
+  // Display game over message with score and high score
+  playButton.style.display = "block";
+  gameOverMessage.style.display = "block";
+
+  updateScore_GameOver();
+  playGameOverSound(); // to play the game over sound here
+
 };
 
 ///////////////////////////////////play Again event///////////////////////////
 
 // To initialize all vars to startover
-function playAgain(){
-   clearInterval(intervalId);
-    changeFoodPosition();
+function playAgain() {
+  clearInterval(intervalId);
+  changeFoodPosition();
+  changeSnakePosition();
+  while (foodX == snakeX && foodY == snakeY) {
+    score--;
     changeSnakePosition();
-    while(foodX==snakeX && foodY==snakeY){
-      score--;
-      changeSnakePosition();
-    }
-    velocityX = 0, velocityY = 0;
-    snake = [];
-    score = 0;
-    ScoreElement.innerText = "00";
-    highestScore = window.localStorage.getItem("highestScore") || undefined;
-   
-    initGame();
+  }
+  velocityX = 0;
+  velocityY = 0;
+  snake = [];
+  score = 0;
+  ScoreElement.innerText = "00";
+  highestScore = window.localStorage.getItem("highestScore") || undefined;
+
+  playAgainFlag = false;
+  playButton.style.display = "none";
+  gameOverMessage.style.display = "none";
+  document.getElementById("scoringDiv").style.display = "block";
+  initGame();
+  
 
 }
-
 
 //////////////////////// sounds ////////////////////////////////////
 // to play eat sound whenever the snake eats food
@@ -214,7 +280,10 @@ const changeDirection = (event) => {
   }
 
 };
+controlers.forEach(key => {
+  key.addEventListener("click", () => changeDirection({ key: key.dataset.key }))
+})
 
 document.addEventListener("keydown", changeDirection);
-initGame();
+/* initGame(); */
 
