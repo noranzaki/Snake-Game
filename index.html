@@ -13,7 +13,7 @@
 </head>
 
 <body>
-    <div id="container">
+    <div id="container" class="noselect" >
         <div id="game">
             <h1 id="gameTitle">Snake Game</h1>
         </div>
@@ -38,12 +38,12 @@
 
                 <!-- Start button -->
                 <br>
-                <button class="glow-on-hover" type="button" onclick="checkGameSettings()">
+                <button id="startBtn" class="glow-on-hover" type="button" onclick="checkGameSettings()">
                     START
                 </button>
             </div>
         </div>
-        <div class="controlers">
+        <div class="controllers">
             <i data-key="ArrowLeft" class="fas fa-arrow-left"></i>
             <i data-key="ArrowUp" class="fas fa-arrow-up"></i>
             <i data-key="ArrowRight" class="fas fa-arrow-right"></i>
@@ -53,8 +53,8 @@
             <h2>SCORE</h2>
             <span id="score">00</span>
         </div>
-        <br>
-        <button class="glow-on-hover" type="button" onclick="playAgain()" style="display: none;">
+        
+        <button id="playAgainBtn" class="glow-on-hover" type="button" onclick="playAgain()" style="display: none;">
             PLAY AGAIN
         </button>
 
