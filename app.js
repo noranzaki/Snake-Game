@@ -17,7 +17,7 @@ const playBoardHeight = playBoard.offsetHeight;
 let playAgainFlag = false; // Flag to track whether it's a play again situation
 
 //food coordinates           //snake coordinates 
-let foodX, foodY, snakeX = 10, snakeY = 10;
+let foodX, foodY, snakeX = 20, snakeY = 20;
 
 //velocityX and velocityY represent the current direction of the snake.
 let velocityX = 0, velocityY = 0;
