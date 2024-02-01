@@ -4,7 +4,6 @@ const scoreDisplay = document.getElementById("scoreDisplay");
 const highScoreDisplay = document.getElementById("highScoreDisplay");
 const gameOverMessage = document.getElementById("gameOverMessage");
 const playButton = document.querySelector(".glow-on-hover");
-
 const controlers = document.querySelectorAll(".controlers i");
 const eatSound = document.getElementById("eatSound");
 const gameOverSound = document.getElementById("gameOverSound");
@@ -36,37 +35,51 @@ const checkGameSettings = () => {
   initGame(displayArrowsFlag,  level );
 
 };
-const updateLevel = (level) => {
+// const updateLevel = (level) => {
  
-      ////to ask the player every time about the level
-      if(level === "high"){
-          //to create a continous loop to update the game state and renders it on the screen(check snake position, handle user input, check for collisions then render)
-          intervalId = setInterval(() => {
-          updateGame();
-          }, 70);   //70 is the speed of game 
-          //without it game will be a static screen 
+//       ////to ask the player every time about the level
+//       if(level === "high"){
+//           //to create a continous loop to update the game state and renders it on the screen(check snake position, handle user input, check for collisions then render)
+//           intervalId = setInterval(() => {
+//           updateGame();
+//           }, 70);   //70 is the speed of game 
+//           //without it game will be a static screen 
         
-      }
-      else if (level === "medium"){
-          intervalId = setInterval(() => {
-            updateGame();
-          }, 100);   //100 is the speed of game 
+//       }
+//       else if (level === "medium"){
+//           intervalId = setInterval(() => {
+//             updateGame();
+//           }, 100);   //100 is the speed of game 
         
 
-      }
-      else {
-          intervalId = setInterval(() => {
-            updateGame();
-          }, 140);   //140 is the speed of game 
+//       }
+//       else {
+//           intervalId = setInterval(() => {
+//             updateGame();
+//           }, 140);   //140 is the speed of game 
 
-      }
+//       }
 
+// };
+
+// enhanced function to update level
+const updateLevel = (level) => {
+  let speed;
+  switch (level) {
+    case "high":
+      speed = 70;
+      break;
+    case "medium":
+      speed = 100;
+      break;
+    default:
+      speed = 140;
+  }
+  intervalId = setInterval(updateGame, speed);
 };
 
 
-
 const initGame = (displayArrowsFlag,level) => {
-
 
   gameOverMessage.style.display = "none";//++++++++++++++++++++++++++++++++++++++++++++++++++
   document.getElementById("scoringDiv").style.display = "block";
