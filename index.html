@@ -17,7 +17,38 @@
         <div id="game">
             <h1 id="gameTitle">Snake Game</h1>
         </div>
-        <div id="canvas"></div>
+        <div id="canvas">
+            <div class="startMenu">
+                <br>
+                <label>
+                    <input type="checkbox" id="displayArrows"> Display arrows in screen
+                </label>
+
+                <h1>Choose level</h1>
+                <div id="levels">
+                    <input type="radio" name="level" id="lowLevel" value="low" checked>
+                    <label  for="lowLevel">Low</label>
+
+                    <input type="radio" name="level" id="mediumLevel" value="medium">
+                    <label for="mediumLevel">Medium</label>
+
+                    <input type="radio" name="level" id="highLevel" value="high">
+                    <label for="highLevel">High</label>
+                </div>
+
+                <!-- Start button -->
+                <br>
+                <button class="glow-on-hover" type="button" onclick="checkGameSettings()">
+                    START
+                </button>
+            </div>
+        </div>
+        <div class="controlers">
+            <i data-key="ArrowLeft" class="fas fa-arrow-left"></i>
+            <i data-key="ArrowUp" class="fas fa-arrow-up"></i>
+            <i data-key="ArrowRight" class="fas fa-arrow-right"></i>
+            <i data-key="ArrowDown" class="fas fa-arrow-down"></i>
+        </div>
         <div id="scoringDiv">
             <h2>SCORE</h2>
             <span id="score">00</span>
@@ -26,9 +57,9 @@
         <button class="glow-on-hover" type="button" onclick="playAgain()" style="display: none;">
             PLAY AGAIN
         </button>
-     
+
         <div id="gameOverMessage">
-            <h1 id ="gameover">GAME OVER</h1>
+            <h1 id="gameover">GAME OVER</h1>
             <p id="scoreDisplay"></p>
             <p id="highScoreDisplay"></p>
         </div>
@@ -36,7 +67,7 @@
     </div>
     <audio id="eatSound" src="eating-sound-effect-36186.mp3"></audio>
     <audio id="gameOverSound" src="mixkit-sad-game-over-trombone-471.wav"></audio>
-    
+
     <script src="app.js"></script>
 </body>
 
