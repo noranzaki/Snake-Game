@@ -1,114 +1,90 @@
-/////////////////////////HTML Elements///////////////////////////////////
 const playBoard = document.querySelector("#canvas");
+//let playBoard_2D_context = playBoard.getContext("2d");
+//const ScoreElement = document.getElementById("scoreDisplay");
 const ScoreElement = document.getElementById("score");
 const scoreDisplay = document.getElementById("scoreDisplay");
 const highScoreDisplay = document.getElementById("highScoreDisplay");
 const gameOverMessage = document.getElementById("gameOverMessage");
-//const playButton = document.querySelector(".glow-on-hover");
-const startButton = document.getElementById("startBtn");
-const playAgainButton = document.getElementById("playAgainBtn");
-const controllers = document.querySelectorAll(".controllers i");
-const eatSound = document.getElementById("eatSound");
-const gameOverSound = document.getElementById("gameOverSound");
-let scoringDiv = document.getElementById("scoringDiv");
+const playButton = document.querySelector(".glow-on-hover");
+let playAgainFlag = false; // Flag to track whether it's a play again situation
 
-////////////////////////Code Variables/////////////////////////////////////
 
 //playBoardWidth and playBoardHeight are constants storing the width and height of the game board.
 const playBoardWidth = playBoard.offsetWidth;
 const playBoardHeight = playBoard.offsetHeight;
 
-// Flag to track whether it's a play again situation
-let playAgainFlag = false; 
 //food coordinates           //snake coordinates 
-let foodX, foodY, snakeX = 10, snakeY = 10;
+let foodX, foodY, snakeX = 20, snakeY = 20;
 //velocityX and velocityY represent the current direction of the snake.
 let velocityX = 0, velocityY = 0;
-//array to store the coordinates of snake body
-let snake = []; 
-//user current score
-let score = 0;    
-//get user Stored_Highest_Score if any 
-let highestScore = window.localStorage.getItem("highestScore") || undefined;  
-// Check if gameover or not
-let GameOver_flag = 0;
- //var to save updateGame interval
-let intervalId;      
+let snake = []; //array to store the coordinates of snake body
+let score = 0;   //user current score 
+let highestScore = window.localStorage.getItem("highestScore") || undefined;  //get user_highest score if any 
+let GameOver_flag = 0 ;     
+let intervalId;       //var to save updateGame interval
 
 
-////////////////////////////////check setting before start//////////////////////////////////////
+const eatSound = document.getElementById("eatSound");
+const gameOverSound = document.getElementById("gameOverSound");
 
-const checkGameSettings = () => {
-  const displayArrowsFlag = document.getElementById("displayArrows").checked;
-  const level = document.querySelector('input[name="level"]:checked').value;
-  initGame(displayArrowsFlag, level);
-
-};
-
-const showPlayArrows = (displayArrowsFlag) =>{
-      // Use setTimeout to introduce a slight delay before showing arrows
-    setTimeout(() => {
-    if (displayArrowsFlag) {
-        document.querySelector('.controllers').style.display = 'flex';
-      }
-
-    }, 100);
-    
-   
-}
-
-const initGame = (displayArrowsFlag,level) => {
-
- // gameOverMessage.style.display = "none";
- // document.getElementById("scoringDiv").style.display = "block";
-  //const playAgainButton = document.querySelector(".glow-on-hover");
- // playButton.style.display = "none"; // Hide the button during gameplay
+const initGame = () => {
   
-    changeFoodPosition();
-    updateLevel(level);
-    showPlayArrows(displayArrowsFlag);
-   
+  gameOverMessage.style.display = "none";
+  document.getElementById("scoringDiv").style.display = "block";
+  changeFoodPosition();
 
+  // updateScore(); //to be implemented by huda
+  //to create a continous loop to update the game state and renders it on the screen(check snake position, handle user input, check for collisions then render)
+  
+  intervalId = setInterval(() => {
+    updateGame();
+  }, 150);
+  // setInterval(() => {
+  //   updateGame();
+  // }, 150); //150 is the speed of game 
+  //without it it will be a static screen 
+
+  playAgainFlag = false;
+  playButton.innerText = "PLAY AGAIN";
+  playButton.style.display = "none";
+  gameOverMessage.style.display = "none";
+  document.getElementById("scoringDiv").style.display = "block";
+  playAgainButton.style.display = "none"; // Hide PLAY AGAIN button initially
 }
-
-// enhanced function to update level
-const updateLevel = (level) => {
-  let speed;
-  switch (level) {
-    case "high":
-      speed = 70;
-      break;
-    case "medium":
-      speed = 100;
-      break;
-    default:
-      speed = 140;
-  }
-  intervalId = setInterval(updateGame, speed);
-};
-
 
 
 const updateGame = () => {
-  //the function to keep the game responsive it gets repeated every { the game speed } milliseconds (update snake position, check for collisions and if bait get eaten increase score , handle user input and render the game )
-
+  //the function to keep the game responsive it gets repeated every 150 milliseconds (update snake position, check for collisions and if bait get eaten increase score , handle user input and render the game )
   updateSnake();
   checkCollision();
-  ateBait();
+  ateBait(); 
   renderGame();
 }
 
+
 const changeFoodPosition = () => {
-  //generate coordinates from 1 to 25 (within the game board)
-  foodX = Math.floor(Math.random() * 24) + 1;/* we used 24 here because in CSS we specified the num of rows&cols with 25 */
-  foodY = Math.floor(Math.random() * 24) + 1;
+  //generate coordinates from 1 to 30 (within the game board)
+  foodX = Math.floor(Math.random() * 29) + 1;/* we used 30 here because in CSS we specified the num of rows&cols with 30 */
+  foodY = Math.floor(Math.random() * 29) + 1;
 };
 
 const changeSnakePosition = () => {
-  //generate coordinates from 1 to 25 (within the game board)
-  snakeX = Math.floor(Math.random() * 24) + 1;/* we used 24 here because in CSS we specified the num of rows&cols with 25 */
-  snakeY = Math.floor(Math.random() * 24) + 1;
+  //generate coordinates from 1 to 30 (within the game board)
+  snakeX = Math.floor(Math.random() * 29) + 1;/* we used 30 here because in CSS we specified the num of rows&cols with 30 */
+  snakeY = Math.floor(Math.random() * 29) + 1;
 };
+
+
+
+//to be implemented by huda
+// const updateScore = () => {
+//   score++; // increment score by 1
+//   highScore = score >= highScore ? score : highScore; //update high score to set it in the local storage to be able to retrieve it again in case the current game is over
+//   localStorage.setItem("high-score", highScore);
+//   ScoreElement.innerText = `Score: ${score}`;
+//   highScoreElement.innerText = `High Score: ${highScore}`;
+// };
+
 const updateSnake = () => {
   // Copy the snake array to avoid referencing issues (... : shallow copy)
   const newSnake = [...snake];
@@ -128,10 +104,10 @@ const updateSnake = () => {
 
 const checkCollision = () => {
   // collision with walls
-  if (snakeX == 0 || snakeX > 25 || snakeY == 0 || snakeY > 25) {
+  if (snakeX < 0 || snakeX > 30 || snakeY < 0 || snakeY > 30) {
     gameOver();
   }
-  //collision with itself 
+  // collision with itself 
   //comparing head of snake which is at snakeX, snakeY with it's body parts
   for (let i = 1; i < snake.length; i++) {
     if (snakeX == snake[i][0] && snakeY == snake[i][1]) {
@@ -139,7 +115,9 @@ const checkCollision = () => {
       break;
     }
   }
-};
+ };
+
+
 //checks if the snake's head is in the same position as the food
 const ateBait = () => {
   if (snakeX === foodX && snakeY === foodY) // to check if snake and food have the same position
@@ -157,89 +135,65 @@ const renderGame = () => {
   }
   playBoard.innerHTML = addElements;
 };
-///////////////////////////////////////////Scoring Update///////////////////////////////////////////
+
+
+///////////////Scoring Update///////////////////////////////////////////
 function updateScore_Playing() {
   score++;
   ScoreElement.innerText = score.toString().padStart(2, "0");
+  
 }
 
 //update highest score and show scoreDisplay &  highScoreDisplay
 function updateScore_GameOver() {
+ 
+ //check if highestScore have changed or not 
+ highestScore ? null : (highestScore = score);    // first time to play 
+ score > highestScore ? (highestScore = score) : null;   // user exceed prev_highest score
+ window.localStorage.setItem("highestScore", highestScore);
 
-  //check if highestScore have changed or not 
-  highestScore ? null : (highestScore = score);    // first time to play 
-  score > highestScore ? (highestScore = score) : null;   // user exceed prev_highest score
-  window.localStorage.setItem("highestScore", highestScore);
-
-  // Update the score and high score displays
-  scoreDisplay.textContent = `Your Score: ${score}`;
-  highScoreDisplay.textContent = `Highest Score: ${highestScore}`;
+ // Update the score and high score displays
+ scoreDisplay.textContent = `Your Score: ${score}`;
+ highScoreDisplay.textContent = `Highest Score: ${highestScore}`;
+  
 }
-///////////////////////////////////////////Game Over///////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////////////
+
+
+
+
+
+//////////////////////////////Game Over /////////////////////////////
 const gameOver = () => {
 
-  GameOver_flag++;
+GameOver_flag++;
   clearInterval(intervalId);
   console.log("gameOver function == ", GameOver_flag);
-  updateScore_GameOver();
-  playGameOverSound(); // to play the game over sound here
 
-  // Display game over message with score and high score and play again button
-
-  // hide Scoring area
-  scoringDiv.style.display = "none";
-  // show gameover message
+  document.getElementById("scoringDiv").style.display = "none";
   gameOverMessage.style.display = "block";
+
   // Show "PLAY AGAIN" button
-  //const playAgainButton = document.querySelector(".glow-on-hover");
+  const playAgainButton = document.querySelector(".glow-on-hover");
   playAgainButton.style.display = "block";
 
-
-
+  updateScore_GameOver();
+ document.getElementById("scoringDiv").style.display = "none";
+ // Display game over message with score and high score
+ playButton.style.display = "block";
+ gameOverMessage.style.display = "block";
+   
+ updateScore_GameOver();
+ playGameOverSound(); // to play the game over sound here
+ 
 };
 
-const ClearBoard = () => {
+///////////////////////////////////play Again event///////////////////////////
 
-  gameOverMessage.style.display = "none";
-  // Show "PLAY AGAIN" button
-  //const playAgainButton = document.querySelector(".glow-on-hover");
-  playAgainButton.style.display = "none";
-  // Clear the game board
-  playBoard.innerHTML = '';
-  document.querySelector('.controllers').style.display = 'none';
-  // Display the start menu
-  const startMenu = `
-    <div class="startMenu">
-      <br>
-      <label>
-        <input type="checkbox" id="displayArrows"> Display arrows in screen
-      </label>
+// To initialize all vars to startover
+function playAgain(){
 
-      <h1>Choose level</h1>
-      <div id="levels">
-        <input type="radio" name="level" id="lowLevel" value="low" checked>
-        <label for="lowLevel">Low</label>
-
-        <input type="radio" name="level" id="mediumLevel" value="medium">
-        <label for="mediumLevel">Medium</label>
-
-        <input type="radio" name="level" id="highLevel" value="high">
-        <label for="highLevel">High</label>
-      </div>
-
-      <!-- Start button -->
-      <br>
-      <button id="reStartBtn" class="glow-on-hover" type="button" ">
-        ReSTART
-      </button>
-    </div>
-  `;
-
-  // Append the start menu to the play board
-  playBoard.innerHTML = startMenu;
-};
-
-const reInitializeGame = () =>{
+  clearInterval(intervalId);
   changeFoodPosition();
   changeSnakePosition();
   while (foodX == snakeX && foodY == snakeY) {
@@ -252,38 +206,33 @@ const reInitializeGame = () =>{
   score = 0;
   ScoreElement.innerText = "00";
   highestScore = window.localStorage.getItem("highestScore") || undefined;
-  scoringDiv.style.display = "block";
   playAgainFlag = false;
+  playButton.style.display = "none";
+  gameOverMessage.style.display = "none";
+  document.getElementById("scoringDiv").style.display = "block";
+  initGame();
 
 }
 
-///////////////////////////////////play Again event///////////////////////////
 
-// To initialize all vars to startover
-function playAgain() {
-  ClearBoard();
-  clearInterval(intervalId);
-  const reStartButton = document.getElementById("reStartBtn");
-  reStartButton.addEventListener("click", function() {
-    reInitializeGame();
-      checkGameSettings();
-  });
-
-
-}
-///////////////////////////////////////////sounds///////////////////////////////////////////
+//////////////////////// sounds ////////////////////////////////////
 // to play eat sound whenever the snake eats food
 const playEatSound = () => {
   eatSound.currentTime = 0; // to reset the sound to the beginning in case it's already playing
-  eatSound.play(); //to play sound
+  eatSound.play();
 };
 
 // to play game over sound when the game is over
 const playGameOverSound = () => {
-  gameOverSound.currentTime = 0;// to reset the sound to the beginning in case it's already playing
-  gameOverSound.play(); //to play sound
+  gameOverSound.currentTime = 0;
+  gameOverSound.play(); // to reset the sound to the beginning in case it's already playing
 };
+
+
+
+
 /////////////////////////// Keyboard Movments //////////////////////////////
+
 //an event handler function to decide direction of snake based on arrow pressed
 const changeDirection = (event) => {
   if (event.key === "ArrowUp" && velocityY != 1) {
@@ -299,11 +248,9 @@ const changeDirection = (event) => {
     velocityX = 1;
     velocityY = 0;
   }
+
 };
-controllers.forEach(key => {
-  key.addEventListener("click", () => changeDirection({ key: key.dataset.key }))
-})
 
 document.addEventListener("keydown", changeDirection);
-/* initGame(); */
+initGame();
 
