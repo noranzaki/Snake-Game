@@ -64,7 +64,17 @@ let highestScoreH = window.localStorage.getItem("highestScoreH") || 0;
 // Check if gameover or not
 let GameOver_flag = 0;
  //var to save updateGame interval
-let intervalId;      
+let intervalId;   
+/////////obstacles coordinates   
+const obstacles = [
+  [5, 5],[5, 6],[5, 7],[5, 8],
+  [5, 17],[5, 18],[5, 19],[5, 20],
+  [20, 20],[20, 17],[20, 18],[20, 19],
+  [20, 5],[20, 6],[20, 7],[20, 8]
+
+  // Add more obstacle positions as needed
+];
+
 /////////////////////////////////////////////////////////////////////////
 
 ////////////////////////Functions///////////////////////////////////
@@ -140,20 +150,30 @@ const changeFoodPosition = () => {
   do {
     foodX = Math.floor(Math.random() * 24) + 1;
     foodY = Math.floor(Math.random() * 24) + 1;
-  } while (isFoodInsideSnake());
+  } while (isPositionOccupied(foodX, foodY));
 };
 
 //***//
 //7
 //***//
-//function to make sure that food position(x,y) is not generated within snake body
-const isFoodInsideSnake=()=>{
+// function to make sure that food position(x,y) is not generated within snake body or obstacles
+const isPositionOccupied = (x, y) => {
   for (let i = 0; i < snake.length; i++) {
-    if (foodX === snake[i][0] && foodY === snake[i][1]) {
-      return true; // Food position is inside the snake
+    if (x === snake[i][0] && y === snake[i][1]) {
+      return true; // Position is occupied by snake
     }
   }
-  return false; 
+
+  if (level === 'high') {
+   
+    for (let i = 0; i < obstacles.length; i++) {
+      if (x === obstacles[i][0] && y === obstacles[i][1]) {
+        return true; // Position is occupied by an obstacle
+      }
+    }
+  }
+
+  return false;
 };
 
 //***//
@@ -191,16 +211,32 @@ const updateSnake = () => {
 //10
 //***//
 const checkCollision = () => {
-  // collision with walls
+  // Collision with walls
   if (snakeX == 0 || snakeX > 25 || snakeY == 0 || snakeY > 25) {
     gameOver();
+    return;
   }
-  //collision with itself 
-  //comparing head of snake which is at snakeX, snakeY with it's body parts
+
+  // Collision with obstacles
+  if (level === 'high') {
+    
+    for (let i = 0; i < obstacles.length; i++) {
+      const obstacleX = obstacles[i][0];
+      const obstacleY = obstacles[i][1];
+  
+      if (snakeX == obstacles[i][0] && snakeY == obstacles[i][1]) {
+        // Collision with obstacle, game over
+        gameOver();
+        return;
+      }
+    }
+  }
+
+  // Collision with itself
   for (let i = 1; i < snake.length; i++) {
     if (snakeX == snake[i][0] && snakeY == snake[i][1]) {
       gameOver();
-      break;
+      return;
     }
   }
 };
@@ -232,13 +268,40 @@ function updateScore_Playing() {
 //13
 //***//
 const renderGame = () => {
-  let addElements = `<div class="food" style='grid-area: ${foodY} / ${foodX}'></div>`;
+  let addElements = '';
+
+  if (level === "high") {
+    // Render fixed obstacles for high level
+    addElements += `<div class="obstacle" style='grid-area: 5 / 5'></div>`;
+    addElements += `<div class="obstacle" style='grid-area: 6 / 5'></div>`;
+    addElements += `<div class="obstacle" style='grid-area: 7 / 5'></div>`;
+    addElements += `<div class="obstacle" style='grid-area: 8 / 5'></div>`;
+    addElements += `<div class="obstacle" style='grid-area: 17 / 5'></div>`;
+    addElements += `<div class="obstacle" style='grid-area: 18 / 5'></div>`;
+    addElements += `<div class="obstacle" style='grid-area: 19 / 5'></div>`;
+    addElements += `<div class="obstacle" style='grid-area: 20/ 5'></div>`;
+    addElements += `<div class="obstacle" style='grid-area: 5 / 20'></div>`;
+    addElements += `<div class="obstacle" style='grid-area: 6 / 20'></div>`;
+    addElements += `<div class="obstacle" style='grid-area: 7 / 20'></div>`;
+    addElements += `<div class="obstacle" style='grid-area: 8 / 20'></div>`;
+    addElements += `<div class="obstacle" style='grid-area: 17 / 20'></div>`;
+    addElements += `<div class="obstacle" style='grid-area: 18 / 20'></div>`;
+    addElements += `<div class="obstacle" style='grid-area: 19 / 20'></div>`;
+    addElements += `<div class="obstacle" style='grid-area: 20 / 20'></div>`;
+    // Add more obstacles as needed
+  }
+
+  // Render food and snake
+  addElements += `<div class="food" style='grid-area: ${foodY} / ${foodX}'></div>`;
   for (let i = 0; i < snake.length; i++) {
     addElements += `<div class="snakeHead" style='grid-area: ${snake[i][1]} / ${snake[i][0]}'></div>`;
   }
+
+
   playBoard.innerHTML = addElements;
   ScoreElement.style.display='block';
   scoreH2.style.display='block';
+
 };
 
 ///////////////////////////////////////////Game Over///////////////////////////////////////////
@@ -339,10 +402,13 @@ const reInitializeGame = () =>{
 //19
 //***//
 const changeSnakePosition = () => {
-  //generate coordinates from 1 to 25 (within the game board)
-  snakeX = Math.floor(Math.random() * 24) + 1;/* we used 24 here because in CSS we specified the num of rows&cols with 25 */
-  snakeY = Math.floor(Math.random() * 24) + 1;
+   //generate coordinates from 1 to 25 (within the game board)
+  do {
+    snakeX = Math.floor(Math.random() * 24) + 1;/* we used 24 here because in CSS we specified the num of rows&cols with 25 */
+    snakeY = Math.floor(Math.random() * 24) + 1;
+  } while (isPositionOccupied(snakeX, snakeY));
 };
+
 
 //***//
 //20
