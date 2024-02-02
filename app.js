@@ -5,7 +5,7 @@ const scoreDisplay = document.getElementById("scoreDisplay");
 const highScoreDisplay = document.getElementById("highScoreDisplay");
 const gameOverMessage = document.getElementById("gameOverMessage");
 //const playButton = document.querySelector(".glow-on-hover");
-const startButton = document.getElementById("startBtn");
+//const startButton = document.getElementById("startBtn"); //not used
 const playAgainButton = document.getElementById("playAgainBtn");
 const controllers = document.querySelectorAll(".controllers i");
 const eatSound = document.getElementById("eatSound");
@@ -140,11 +140,21 @@ const updateGame = () => {
   ateBait();
   renderGame();
 }
+//function to make sure that food position(x,y) generated not within snake body
+const isFoodInsideSnake=()=>{
+  for (let i = 0; i < snake.length; i++) {
+    if (foodX === snake[i][0] && foodY === snake[i][1]) {
+      return true; // Food position is inside the snake
+    }
+  }
+  return false; 
+};
 
 const changeFoodPosition = () => {
-  //generate coordinates from 1 to 25 (within the game board)
-  foodX = Math.floor(Math.random() * 24) + 1;/* we used 24 here because in CSS we specified the num of rows&cols with 25 */
-  foodY = Math.floor(Math.random() * 24) + 1;
+  do {
+    foodX = Math.floor(Math.random() * 24) + 1;
+    foodY = Math.floor(Math.random() * 24) + 1;
+  } while (isFoodInsideSnake());
 };
 
 const changeSnakePosition = () => {
