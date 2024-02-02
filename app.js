@@ -144,7 +144,7 @@ const updateGame = () => {
   ateBait();
   renderGame();
 }
-//function to make sure that food position(x,y) generated not within snake body
+//function to make sure that food position(x,y) is not generated within snake body
 const isFoodInsideSnake=()=>{
   for (let i = 0; i < snake.length; i++) {
     if (foodX === snake[i][0] && foodY === snake[i][1]) {
@@ -261,21 +261,19 @@ const gameOver = () => {
   GameOver_flag++;
   clearInterval(intervalId);
   console.log("gameOver function == ", GameOver_flag);
-  updateScore_GameOver();
-  playGameOverSound(); // to play the game over sound here
+  setTimeout(()=>{
+    updateScore_GameOver();
+    playGameOverSound(); // to play the game over sound here
 
-  // Display game over message with score and high score and play again button
-
-  // hide Scoring area
-  scoringDiv.style.display = "none";
-  // show gameover message
-  gameOverMessage.style.display = "block";
-  // Show "PLAY AGAIN" button
-  //const playAgainButton = document.querySelector(".glow-on-hover");
-  playAgainButton.style.display = "block";
-
-
-
+    // Display game over message with score and high score and play again button
+    // hide Scoring area
+    scoringDiv.style.display = "none";
+    // show gameover message
+    gameOverMessage.style.display = "block";
+    // Show "PLAY AGAIN" button
+    //const playAgainButton = document.querySelector(".glow-on-hover");
+    playAgainButton.style.display = "block";
+  },100);
 };
 
 const ClearSnakeBoard = () => {
