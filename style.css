@@ -11,6 +11,9 @@ body {
   background-color: #222738;
   overflow: hidden;
 }
+#canvas .obstacle {
+  background: #8c8c8c; /* You can choose the color for your obstacles */
+}
 
 #container {
   position: absolute;
