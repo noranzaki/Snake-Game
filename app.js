@@ -348,7 +348,7 @@ const gameOver = () => {
     
     // Update the score and high score displays
     scoreDisplay.textContent = `Your Score: ${score}`;
-    highScoreDisplay.textContent = `Highest Score (${level}): ${highesLevelScore}`;
+    highScoreDisplay.textContent = `Highest Score : ${highesLevelScore}`;
   }
 
 ///////////////////////////////////play Again event///////////////////////////
