@@ -17,69 +17,40 @@ const playBoardHeight = playBoard.offsetHeight;
 let foodX, foodY, snakeX = 20, snakeY = 20;
 //velocityX and velocityY represent the current direction of the snake.
 let velocityX = 0, velocityY = 0;
-//array to store the coordinates of snake body
-let snake = []; 
-//user current score
-let score = 0;    
-//get user Stored_Highest_Score if any 
-let highestScore = window.localStorage.getItem("highestScore") || undefined;  
-// Check if gameover or not
-let GameOver_flag = 0;
- //var to save updateGame interval
-let intervalId;      
+let snake = []; //array to store the coordinates of snake body
+let score = 0;   //user current score 
+let highestScore = window.localStorage.getItem("highestScore") || undefined;  //get user_highest score if any 
+let GameOver_flag = 0 ;     
+let intervalId;       //var to save updateGame interval
 
 
-////////////////////////////////check setting before start//////////////////////////////////////
+const eatSound = document.getElementById("eatSound");
+const gameOverSound = document.getElementById("gameOverSound");
 
-const checkGameSettings = () => {
-  const displayArrowsFlag = document.getElementById("displayArrows").checked;
-  const level = document.querySelector('input[name="level"]:checked').value;
-  initGame(displayArrowsFlag,  level );
-
-};
-
-const showPlayArrows = (displayArrowsFlag) =>{
-      // Use setTimeout to introduce a slight delay before showing arrows
-    setTimeout(() => {
-    if (displayArrowsFlag) {
-        document.querySelector('.controllers').style.display = 'flex';
-      }
-
-    }, 100);
-    
-   
-}
-
-const initGame = (displayArrowsFlag,level) => {
-
- // gameOverMessage.style.display = "none";
- // document.getElementById("scoringDiv").style.display = "block";
-  //const playAgainButton = document.querySelector(".glow-on-hover");
- // playButton.style.display = "none"; // Hide the button during gameplay
+const initGame = () => {
   
-    changeFoodPosition();
-    updateLevel(level);
-    showPlayArrows(displayArrowsFlag);
-   
+  gameOverMessage.style.display = "none";
+  document.getElementById("scoringDiv").style.display = "block";
+  changeFoodPosition();
 
+  // updateScore(); //to be implemented by huda
+  //to create a continous loop to update the game state and renders it on the screen(check snake position, handle user input, check for collisions then render)
+  
+  intervalId = setInterval(() => {
+    updateGame();
+  }, 150);
+  // setInterval(() => {
+  //   updateGame();
+  // }, 150); //150 is the speed of game 
+  //without it it will be a static screen 
+
+  playAgainFlag = false;
+  playButton.innerText = "PLAY AGAIN";
+  playButton.style.display = "none";
+  gameOverMessage.style.display = "none";
+  document.getElementById("scoringDiv").style.display = "block";
+  playAgainButton.style.display = "none"; // Hide PLAY AGAIN button initially
 }
-
-// enhanced function to update level
-const updateLevel = (level) => {
-  let speed;
-  switch (level) {
-    case "high":
-      speed = 70;
-      break;
-    case "medium":
-      speed = 100;
-      break;
-    default:
-      speed = 140;
-  }
-  intervalId = setInterval(updateGame, speed);
-};
-
 
 
 const updateGame = () => {
@@ -92,17 +63,27 @@ const updateGame = () => {
 
 
 const changeFoodPosition = () => {
-  //generate coordinates from 1 to 25 (within the game board)
-  foodX = Math.floor(Math.random() * 24) + 1;/* we used 30 here because in CSS we specified the num of rows&cols with 30 */
-  foodY = Math.floor(Math.random() * 24) + 1;
+  //generate coordinates from 1 to 30 (within the game board)
+  foodX = Math.floor(Math.random() * 29) + 1;/* we used 30 here because in CSS we specified the num of rows&cols with 30 */
+  foodY = Math.floor(Math.random() * 29) + 1;
 };
 
 const changeSnakePosition = () => {
-  //generate coordinates from 1 to 25 (within the game board)
-  snakeX = Math.floor(Math.random() * 24) + 1;/* we used 30 here because in CSS we specified the num of rows&cols with 30 */
-  snakeY = Math.floor(Math.random() * 24) + 1;
+  //generate coordinates from 1 to 30 (within the game board)
+  snakeX = Math.floor(Math.random() * 29) + 1;/* we used 30 here because in CSS we specified the num of rows&cols with 30 */
+  snakeY = Math.floor(Math.random() * 29) + 1;
 };
 
+
+
+//to be implemented by huda
+// const updateScore = () => {
+//   score++; // increment score by 1
+//   highScore = score >= highScore ? score : highScore; //update high score to set it in the local storage to be able to retrieve it again in case the current game is over
+//   localStorage.setItem("high-score", highScore);
+//   ScoreElement.innerText = `Score: ${score}`;
+//   highScoreElement.innerText = `High Score: ${highScore}`;
+// };
 
 const updateSnake = () => {
   // Copy the snake array to avoid referencing issues (... : shallow copy)
@@ -134,7 +115,7 @@ const checkCollision = () => {
       break;
     }
   }
-};
+ };
 
 
 //checks if the snake's head is in the same position as the food
@@ -160,7 +141,7 @@ const renderGame = () => {
 function updateScore_Playing() {
   score++;
   ScoreElement.innerText = score.toString().padStart(2, "0");
-
+  
 }
 
 //update highest score and show scoreDisplay &  highScoreDisplay
@@ -171,12 +152,16 @@ function updateScore_GameOver() {
  score > highestScore ? (highestScore = score) : null;   // user exceed prev_highest score
  window.localStorage.setItem("highestScore", highestScore);
 
-  // Update the score and high score displays
-  scoreDisplay.textContent = `Your Score: ${score}`;
-  highScoreDisplay.textContent = `Highest Score: ${highestScore}`;
-
+ // Update the score and high score displays
+ scoreDisplay.textContent = `Your Score: ${score}`;
+ highScoreDisplay.textContent = `Highest Score: ${highestScore}`;
+  
 }
 ///////////////////////////////////////////////////////////////////////////////
+
+
+
+
 
 //////////////////////////////Game Over /////////////////////////////
 const gameOver = () => {
@@ -229,8 +214,6 @@ function playAgain(){
 
 }
 
-
-}
 
 //////////////////////// sounds ////////////////////////////////////
 // to play eat sound whenever the snake eats food

@@ -35,7 +35,7 @@ body {
   border: 2px solid #fcaa59;
   background-color: #1d2542;
   display: grid;
-  grid-template: repeat(25, 1fr) / repeat(25, 1fr); /* Adjust the grid size */
+  grid-template: repeat(25, 1fr) / repeat(25, 1fr);
 }
 
 
