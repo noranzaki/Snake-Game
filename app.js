@@ -57,9 +57,13 @@ let velocityX = 0, velocityY = 0;
 //array to store the coordinates of snake body
 let snake = []; 
 //user current score
-let score = 0;    
+let score = 0; 
+let level ='low'   
 //get user Stored_Highest_Score if any 
-let highestScore = window.localStorage.getItem("highestScore") || undefined;  
+
+let highestScoreL = window.localStorage.getItem("highestScoreL") || 0; 
+let highestScoreM = window.localStorage.getItem("highestScoreM") || 0; 
+let highestScoreH = window.localStorage.getItem("highestScoreH") || 0;  
 // Check if gameover or not
 let GameOver_flag = 0;
  //var to save updateGame interval
@@ -91,7 +95,7 @@ document.addEventListener("DOMContentLoaded", function() {
 ////////////////////////////////check setting before start/////////////////////////////////////
 function checkGameSettings(){
   const displayArrowsFlag = document.getElementById("displayArrows").checked;
-  const level = document.querySelector('input[name="level"]:checked').value;
+  level = document.querySelector('input[name="level"]:checked').value;
   initGame(displayArrowsFlag, level);
 }
 
@@ -217,7 +221,7 @@ function updateScore_Playing() {
 }
 
 //update highest score and show scoreDisplay &  highScoreDisplay
-function updateScore_GameOver() {
+/* function updateScore_GameOver() {
 
   //check if highestScore have changed or not 
   highestScore ? null : (highestScore = score);    // first time to play 
@@ -227,7 +231,30 @@ function updateScore_GameOver() {
   // Update the score and high score displays
   scoreDisplay.textContent = `Your Score: ${score}`;
   highScoreDisplay.textContent = `Highest Score: ${highestScore}`;
-}
+} */
+
+let localStorageKey = `highestScore${level.charAt(0).toUpperCase()}`;
+  console.log(localStorageKey);
+
+  function updateScore_GameOver() {
+    let localStorageKey = `highestScore${level.charAt(0).toUpperCase()}`;
+    console.log(localStorageKey);
+    
+    // Use the same key consistently
+    let highesLevelScore = window.localStorage.getItem(localStorageKey) || undefined;
+    console.log(highesLevelScore);
+    
+    // Check if highestScore has changed or not
+    highesLevelScore ? null : (highesLevelScore = score); // first time playing
+    score > highesLevelScore ? (highesLevelScore = score) : null; // user exceeds previous highest score
+    
+    // Save the updated highest score in local storage
+    window.localStorage.setItem(localStorageKey, highesLevelScore);
+    
+    // Update the score and high score displays
+    scoreDisplay.textContent = `Your Score: ${score}`;
+    highScoreDisplay.textContent = `Highest Score (${level}): ${highesLevelScore}`;
+  }
 ///////////////////////////////////////////Game Over///////////////////////////////////////////
 const gameOver = () => {
 
