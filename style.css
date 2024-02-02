@@ -30,8 +30,8 @@ body {
 }
 
 #canvas {
-  width: 550px;  /* Set the desired width */
-  height: 450px; /* Set the desired height */
+  width: 550px;  
+  height: 450px; 
   border: 2px solid #fcaa59;
   background-color: #1d2542;
   display: grid;
@@ -65,7 +65,7 @@ body {
 
 .startMenu h1 {
   font-size: 50px; 
-  color: #ec9743;
+  /* color: #ec9743; */
 }
 
 .startMenu div {
@@ -89,10 +89,10 @@ body {
 }
 
 
-.startMenu input[type="checkbox"],
+/* .startMenu input[type="checkbox"],
 .startMenu input[type="radio"] {
   margin-right: 5px;
-}
+} */
 
 .startMenu .glow-on-hover {
   margin-top: 20px;
@@ -104,7 +104,7 @@ body {
 
 
 .controllers {
-  display: none;
+  /* display: none; */
   justify-content: space-between;
   align-items: center;
 }
@@ -212,7 +212,7 @@ body {
 }
 
 #gameOverMessage {
-  display: none;
+  /* display: none; */
   position: absolute;
   top: 55%;
   left: 50%;
@@ -228,6 +228,8 @@ body {
   text-align: center;
 }
 
-
+.controllers, #gameOverMessage, #ScoreH2, #score, #playAgainBtn{
+  display: none;
+}
 
 
