@@ -1,9 +1,11 @@
 # Snake Game
 
-Welcome to the Snake Game! A classic snake game built using HTML, CSS, and JavaScript.
+Welcome to the Snake Game – a thrilling adventure where you control a snake to devour food and grow longer. Navigate through the challenge, but watch out for walls and your own tail!
+
+![Snake Game Demo](demo/snake_game_demo.gif)
 
 ## Table of Contents
-- [Demo](#demo)
+- [Introduction](#introduction)
 - [Features](#features)
 - [Getting Started](#getting-started)
 - [Game Controls](#game-controls)
@@ -13,9 +15,11 @@ Welcome to the Snake Game! A classic snake game built using HTML, CSS, and JavaS
 - [Game Over](#game-over)
 - [Play Again](#play-again)
 
-## Demo
 
-![Snake Game Demo](demo/snake_game_demo.gif)
+## Introduction
+
+Embark on a classic gaming experience with our Snake Game, skillfully crafted using HTML, CSS, and JavaScript.
+
 
 ## Features
 
@@ -39,25 +43,27 @@ git clone https://github.com/noranzaki/Snake-Game
 4. Click the "START" button to begin the game.
 
 ## Game Controls
-### Arrow keys:
-- Up: Arrow Up
-- Down: Arrow Down
-- Left: Arrow Left
-- Right: Arrow Right
+Control the snake with simple yet intuitive keyboard inputs:
+- **Arrow Up**: Move Up
+- **Arrow Down**: Move Down
+- **Arrow Left**: Move Left
+- **Arrow Right**: Move Right
 
 ## Scoring
 Each time the snake eats food, your score increases.
 
 The score is displayed in the middle of the game screen.
 ## Sound Effects
-Enjoy sound effects for the following events:
-- Eating food
-- Game over
+Immerse yourself in the gameplay with dynamic sound effects:
+- 🎵 **Eat Sound**: A satisfying crunch when the snake devours food.
+- 🎶 **Game Over Sound**: A somber note signaling the end of the game.
+
 ## Levels
-Choose from three difficulty levels:
-- Low
-- Medium
-- High
+Adjust the difficulty with different levels:
+- **Low**: Slow and steady.
+- **Medium**: A moderate pace.
+- **High**: Fast and intense.
+
 ## Game Over
 The game ends when the snake collides with the walls or itself.
 
