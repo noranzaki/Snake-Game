@@ -302,7 +302,7 @@ const reInitializeGame = () =>{
   snake = [];
   score = 0;
   ScoreElement.innerText = "00";
-  highestScore = window.localStorage.getItem("highestScore") || undefined;
+ // highestScore = window.localStorage.getItem("highestScore") || undefined;
   scoringDiv.style.display = "block";
   playAgainFlag = false;
 
