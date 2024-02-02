@@ -63,11 +63,7 @@ Immerse yourself in the gameplay with dynamic sound effects:
 Adjust the difficulty with different levels:
 - **Low**: Slow and steady.
 - **Medium**: A moderate pace.
-<<<<<<< HEAD
 - **High**: Fast and intense with strategically placed obstacles!
-=======
-- **High**: Fast and intense.
->>>>>>> 070d8ff (docs: update the README file)
 
 ## Game Over
 The game ends when the snake collides with the walls or itself.
