@@ -49,7 +49,7 @@ Control the snake with simple yet intuitive keyboard inputs:
 - **Arrow Down**: Move Down
 - **Arrow Left**: Move Left
 - **Arrow Right**: Move Right  
-OR  
+ OR  
 Embedded arrow keys on the game's screen :  
 - **Arrow Up**: Move Up
 - **Arrow Down**: Move Down
