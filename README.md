@@ -48,7 +48,7 @@ Control the snake with simple yet intuitive keyboard inputs:
 - **Arrow Up**: Move Up
 - **Arrow Down**: Move Down
 - **Arrow Left**: Move Left
-- **Arrow Right**: Move Right
+- **Arrow Right**: Move Right  
 OR  
 Embedded arrow keys on the game's screen :  
 - **Arrow Up**: Move Up
@@ -57,7 +57,7 @@ Embedded arrow keys on the game's screen :
 - **Arrow Right**: Move Right
   
 ## Scoring
-Each time the snake eats food, your score increases.
+Each time the snake eats food, your score increases.  
 The user's current score is displayed in the middle of the game screen.  
 The user's highest score at every level is displayed when it's game-over.
 
