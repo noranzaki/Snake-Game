@@ -24,7 +24,8 @@ Embark on a classic gaming experience with our Snake Game, skillfully crafted us
 ## Features
 
 - Responsive Snake Game with a grid-based layout.
-- Simple and intuitive controls using arrow keys.
+- Simple and intuitive controls using keyboard arrow keys.
+- option to use screen arrow keys 
 - Scoring system to keep track of your game progress.
 - Sound effects for eating food and game over events.
 - Multiple difficulty levels: Low, Medium, and High.
@@ -48,11 +49,17 @@ Control the snake with simple yet intuitive keyboard inputs:
 - **Arrow Down**: Move Down
 - **Arrow Left**: Move Left
 - **Arrow Right**: Move Right
-
+OR
+Embedded arrow keys on the game's screen :
+- **Arrow Up**: Move Up
+- **Arrow Down**: Move Down
+- **Arrow Left**: Move Left
+- **Arrow Right**: Move Right
+  
 ## Scoring
 Each time the snake eats food, your score increases.
-
-The score is displayed in the middle of the game screen.
+The user's current score is displayed in the middle of the game screen.
+The user's highest score at every level is displayed when it's game-over.
 
 ## Sound Effects
 Immerse yourself in the gameplay with dynamic sound effects:
@@ -67,8 +74,7 @@ Adjust the difficulty with different levels:
 
 ## Game Over
 The game ends when the snake collides with the walls or itself.
-
-A game over message is displayed, showing your score and highest score in the selected level (Low, Medium, High).
+A game-over message is displayed, showing your score and highest score in the selected level (Low, Medium, High).
 
 ## Play Again
 Click the "PLAY AGAIN" button to start a new game.
